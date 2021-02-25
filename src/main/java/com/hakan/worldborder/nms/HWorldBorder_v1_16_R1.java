@@ -32,8 +32,9 @@ public class HWorldBorder_v1_16_R1 implements HWorldBorder {
         worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 
         this.color = color;
-
         this.worldBorder = worldBorder;
+
+        update();
     }
 
     @Override
@@ -61,13 +62,6 @@ public class HWorldBorder_v1_16_R1 implements HWorldBorder {
     @Override
     public void update() {
         WorldBorder worldBorder = this.worldBorder;
-        PacketPlayOutWorldBorder packetPlayOutWorldBorder = new PacketPlayOutWorldBorder(worldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
-        for (String playerName : getPlayers()) {
-            Player player = Bukkit.getPlayer(playerName);
-            if (player != null) {
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutWorldBorder);
-            }
-        }
         switch (this.color) {
             case RED:
                 this.worldBorder.transitionSizeBetween(getSize(), getSize() - 0.1d, Long.MAX_VALUE);
@@ -78,6 +72,13 @@ public class HWorldBorder_v1_16_R1 implements HWorldBorder {
             case GREEN:
                 this.worldBorder.transitionSizeBetween(getSize(), getSize(), Long.MAX_VALUE);
                 break;
+        }
+        PacketPlayOutWorldBorder packetPlayOutWorldBorder = new PacketPlayOutWorldBorder(worldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
+        for (String playerName : getPlayers()) {
+            Player player = Bukkit.getPlayer(playerName);
+            if (player != null) {
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutWorldBorder);
+            }
         }
     }
 

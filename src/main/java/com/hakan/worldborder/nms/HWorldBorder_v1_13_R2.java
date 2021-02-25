@@ -4,6 +4,7 @@ import com.hakan.worldborder.HBorderColor;
 import com.hakan.worldborder.HWorldBorder;
 import com.hakan.worldborder.utils.BorderVariables;
 import net.minecraft.server.v1_13_R2.PacketPlayOutWorldBorder;
+import net.minecraft.server.v1_13_R2.PlayerConnection;
 import net.minecraft.server.v1_13_R2.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,8 +33,9 @@ public class HWorldBorder_v1_13_R2 implements HWorldBorder {
         worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 
         this.color = color;
-
         this.worldBorder = worldBorder;
+
+        update();
     }
 
     @Override
@@ -60,24 +62,25 @@ public class HWorldBorder_v1_13_R2 implements HWorldBorder {
 
     @Override
     public void update() {
+        switch (this.color) {
+            case RED:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize() - 0.1D, Long.MAX_VALUE);
+                break;
+            case GREEN:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize() + 0.1D, Long.MAX_VALUE);
+                break;
+            case BLUE:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize(), Long.MAX_VALUE);
+                break;
+        }
         WorldBorder worldBorder = this.worldBorder;
         PacketPlayOutWorldBorder packetPlayOutWorldBorder = new PacketPlayOutWorldBorder(worldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
         for (String playerName : getPlayers()) {
             Player player = Bukkit.getPlayer(playerName);
             if (player != null) {
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutWorldBorder);
+                PlayerConnection playerConnection = ((CraftPlayer) player).getHandle().playerConnection;
+                playerConnection.sendPacket(packetPlayOutWorldBorder);
             }
-        }
-        switch (this.color) {
-            case RED:
-                this.worldBorder.transitionSizeBetween(getSize(), getSize() - 0.1d, Long.MAX_VALUE);
-                break;
-            case BLUE:
-                this.worldBorder.transitionSizeBetween(getSize(), getSize() + 0.1d, Long.MAX_VALUE);
-                break;
-            case GREEN:
-                this.worldBorder.transitionSizeBetween(getSize(), getSize(), Long.MAX_VALUE);
-                break;
         }
     }
 
