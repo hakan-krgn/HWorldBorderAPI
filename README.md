@@ -1,13 +1,26 @@
 **Example Code:**
 
 ```java
-Player player = Bukkit.getPlayer("playerName");
-HWorldBorder hWorldBorder = WorldBorderAPI.getWorldBorderManager().setColor(HBorderColor.BLUE).setSize(16).setCenter(player.getLocation()).setDamageBuffer(0).setWarningDistance(0).setDamageAmount(0).setWarningTime(0).create();
+HWorldBorder hWorldBorder = WorldBorderAPI.getWorldBorderManager().setCenter(player.getLocation()).setColor(HBorderColor.RED).setSize(20).setDamageAmount(0).create();
 hWorldBorder.send(player);
+new BukkitRunnable() {
+    @Override
+    public void run() {
+        hWorldBorder.setColor(HBorderColor.BLUE);
+        hWorldBorder.update();
+    }
+}.runTaskLater(ClaimPlugin.getInstance(), 20 * 5);
+new BukkitRunnable() {
+    @Override
+    public void run() {
+        hWorldBorder.setColor(HBorderColor.GREEN);
+        hWorldBorder.update();
+    }
+}.runTaskLater(ClaimPlugin.getInstance(), 20 * 10);
 new BukkitRunnable() {
     @Override
     public void run() {
         hWorldBorder.remove(player);
     }
-}.runTaskLater(plugin, 200);
+}.runTaskLater(ClaimPlugin.getInstance(), 20 * 15);
 ```
