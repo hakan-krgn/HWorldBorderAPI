@@ -1,8 +1,7 @@
 package com.hakan.worldborder.listeners;
 
 import com.hakan.worldborder.HWorldBorder;
-import com.hakan.worldborder.WorldBorderPlugin;
-import com.hakan.worldborder.api.WorldBorderAPI;
+import com.hakan.worldborder.WorldBorderAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +23,7 @@ public class BorderUpdateListeners implements Listener {
                     hWorldBorder.send(player);
                 }
             }
-        }.runTaskLater(WorldBorderPlugin.getInstance(), 3);
+        }.runTaskLater(WorldBorderAPI.getInstance(), 3);
     }
 
     @EventHandler
@@ -38,7 +37,7 @@ public class BorderUpdateListeners implements Listener {
                     hWorldBorder.send(player);
                 }
             }
-        }.runTaskLater(WorldBorderPlugin.getInstance(), 3);
+        }.runTaskLater(WorldBorderAPI.getInstance(), 3);
     }
 
     @EventHandler
@@ -52,6 +51,6 @@ public class BorderUpdateListeners implements Listener {
                     hWorldBorder.send(player);
                 }
             }
-        }.runTaskLater(WorldBorderPlugin.getInstance(), 3);
+        }.runTaskLater(WorldBorderAPI.getInstance(), 3);
     }
 }

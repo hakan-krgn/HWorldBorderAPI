@@ -2,7 +2,7 @@
 
 ```java
 Player player=Bukkit.getPlayer("playerName");
-        HWorldBorder hWorldBorder=WorldBorderAPI.getWorldBorderManager().setSize(16).setCenter(player.getLocation()).setDamageBuffer(0).setWarningDistance(0).setDamageAmount(0).setWarningTime(0).create();
+        HWorldBorder hWorldBorder=WorldBorderAPI.getWorldBorderManager().setColor(HBorderColor.BLUE).setSize(16).setCenter(player.getLocation()).setDamageBuffer(0).setWarningDistance(0).setDamageAmount(0).setWarningTime(0).create();
         hWorldBorder.send(player);
         new BukkitRunnable(){
 @Override

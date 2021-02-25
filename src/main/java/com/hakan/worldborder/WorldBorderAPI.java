@@ -1,18 +1,29 @@
-package com.hakan.worldborder.api;
+package com.hakan.worldborder;
 
-import com.hakan.worldborder.HBorderColor;
-import com.hakan.worldborder.HWorldBorder;
-import com.hakan.worldborder.WorldBorderPlugin;
+import com.hakan.worldborder.listeners.BorderUpdateListeners;
 import com.hakan.worldborder.nms.*;
 import com.hakan.worldborder.utils.BorderVariables;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class WorldBorderAPI {
 
+    private static Plugin instance;
+
+    public static Plugin getInstance() {
+        return instance;
+    }
+
     public static void setup(Plugin plugin) {
-        WorldBorderPlugin.setup(plugin);
+        if (instance != null) {
+            Bukkit.getLogger().warning("WorldBorderAPI already registered.");
+            return;
+        }
+        instance = plugin;
+        Bukkit.getPluginManager().registerEvents(new BorderUpdateListeners(), plugin);
+        BorderVariables.serverVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
     }
 
     public static HWorldBorder getWorldBorder(String playerName) {
