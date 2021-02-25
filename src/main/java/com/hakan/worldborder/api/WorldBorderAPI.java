@@ -1,5 +1,6 @@
 package com.hakan.worldborder.api;
 
+import com.hakan.worldborder.HBorderColor;
 import com.hakan.worldborder.HWorldBorder;
 import com.hakan.worldborder.WorldBorderPlugin;
 import com.hakan.worldborder.nms.*;
@@ -34,6 +35,7 @@ public class WorldBorderAPI {
         private int damageBuffer = 0;
         private int warningDistance = 0;
         private int warningTime = 0;
+        private HBorderColor color = HBorderColor.BLUE;
 
         private WorldBorderManager() {
         }
@@ -68,34 +70,39 @@ public class WorldBorderAPI {
             return this;
         }
 
+        public WorldBorderManager setColor(HBorderColor color) {
+            this.color = color;
+            return this;
+        }
+
         public HWorldBorder create() {
             switch (BorderVariables.serverVersion) {
                 case "v1_8_R3":
-                    return new HWorldBorder_v1_8_R3(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_8_R3(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_9_R1":
-                    return new HWorldBorder_v1_9_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_9_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_9_R2":
-                    return new HWorldBorder_v1_9_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_9_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_10_R1":
-                    return new HWorldBorder_v1_10_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_10_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_11_R1":
-                    return new HWorldBorder_v1_11_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_11_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_12_R1":
-                    return new HWorldBorder_v1_12_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_12_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_13_R1":
-                    return new HWorldBorder_v1_13_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_13_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_13_R2":
-                    return new HWorldBorder_v1_13_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_13_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_14_R1":
-                    return new HWorldBorder_v1_14_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_14_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_15_R1":
-                    return new HWorldBorder_v1_15_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_15_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_16_R1":
-                    return new HWorldBorder_v1_16_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_16_R1(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_16_R2":
-                    return new HWorldBorder_v1_16_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_16_R2(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
                 case "v1_16_R3":
-                    return new HWorldBorder_v1_16_R3(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime);
+                    return new HWorldBorder_v1_16_R3(this.center, this.size, this.damageAmount, this.damageBuffer, this.warningDistance, this.warningTime, this.color);
             }
             return null;
         }

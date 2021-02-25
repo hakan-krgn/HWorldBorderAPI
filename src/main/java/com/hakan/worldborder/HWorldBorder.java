@@ -12,17 +12,21 @@ public interface HWorldBorder {
 
     void update();
 
-    int getSize();
+    HBorderColor getColor();
 
-    void setSize(int size);
+    void setColor(HBorderColor hBorderColor);
 
-    int getDamageAmount();
+    double getSize();
 
-    void setDamageAmount(int damageAmount);
+    void setSize(double size);
 
-    int getDamageBuffer();
+    double getDamageAmount();
 
-    void setDamageBuffer(int damageBuffer);
+    void setDamageAmount(double damageAmount);
+
+    double getDamageBuffer();
+
+    void setDamageBuffer(double damageBuffer);
 
     int getWarningDistance();
 

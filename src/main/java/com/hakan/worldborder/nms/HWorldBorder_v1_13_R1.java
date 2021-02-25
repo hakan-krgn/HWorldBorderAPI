@@ -1,5 +1,6 @@
 package com.hakan.worldborder.nms;
 
+import com.hakan.worldborder.HBorderColor;
 import com.hakan.worldborder.HWorldBorder;
 import com.hakan.worldborder.utils.BorderVariables;
 import net.minecraft.server.v1_13_R1.PacketPlayOutWorldBorder;
@@ -17,14 +18,10 @@ public class HWorldBorder_v1_13_R1 implements HWorldBorder {
 
     private final WorldBorder worldBorder;
 
-    private int size;
-    private int damageAmount;
-    private int damageBuffer;
-    private int warningDistance;
-    private int warningTime;
+    private HBorderColor color;
     private List<String> players = new ArrayList<>();
 
-    public HWorldBorder_v1_13_R1(Location location, int size, int damageAmount, int damageBuffer, int warningDistance, int warningTime) {
+    public HWorldBorder_v1_13_R1(Location location, int size, int damageAmount, int damageBuffer, int warningDistance, int warningTime, HBorderColor color) {
         WorldBorder worldBorder = new WorldBorder();
         worldBorder.setCenter(location.getX(), location.getZ());
         worldBorder.setSize(size);
@@ -33,6 +30,8 @@ public class HWorldBorder_v1_13_R1 implements HWorldBorder {
         worldBorder.setWarningDistance(warningDistance);
         worldBorder.setWarningTime(warningTime);
         worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
+
+        this.color = color;
 
         this.worldBorder = worldBorder;
     }
@@ -69,66 +68,82 @@ public class HWorldBorder_v1_13_R1 implements HWorldBorder {
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutWorldBorder);
             }
         }
+        switch (this.color) {
+            case RED:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize() - 0.1d, Long.MAX_VALUE);
+                break;
+            case BLUE:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize() + 0.1d, Long.MAX_VALUE);
+                break;
+            case GREEN:
+                this.worldBorder.transitionSizeBetween(getSize(), getSize(), Long.MAX_VALUE);
+                break;
+        }
     }
 
     @Override
-    public int getSize() {
-        return size;
+    public HBorderColor getColor() {
+        return this.color;
     }
 
     @Override
-    public void setSize(int size) {
-        this.size = size;
+    public void setColor(HBorderColor hBorderColor) {
+        this.color = hBorderColor;
+    }
+
+    @Override
+    public double getSize() {
+        return this.worldBorder.getSize();
+    }
+
+    @Override
+    public void setSize(double size) {
         this.worldBorder.setSize(size);
     }
 
     @Override
-    public int getDamageAmount() {
-        return damageAmount;
+    public double getDamageAmount() {
+        return this.worldBorder.getDamageAmount();
     }
 
     @Override
-    public void setDamageAmount(int damageAmount) {
-        this.damageAmount = damageAmount;
+    public void setDamageAmount(double damageAmount) {
         this.worldBorder.setDamageAmount(damageAmount);
     }
 
     @Override
-    public int getDamageBuffer() {
-        return damageBuffer;
+    public double getDamageBuffer() {
+        return this.worldBorder.getDamageBuffer();
     }
 
     @Override
-    public void setDamageBuffer(int damageBuffer) {
-        this.damageBuffer = damageBuffer;
+    public void setDamageBuffer(double damageBuffer) {
         this.worldBorder.setDamageBuffer(damageBuffer);
     }
 
     @Override
     public int getWarningDistance() {
-        return warningDistance;
+        return this.worldBorder.getWarningDistance();
     }
 
     @Override
     public void setWarningDistance(int warningDistance) {
-        this.warningDistance = warningDistance;
         this.worldBorder.setWarningDistance(warningDistance);
     }
 
     @Override
     public int getWarningTime() {
-        return warningTime;
+        return this.worldBorder.getWarningTime();
     }
 
     @Override
     public void setWarningTime(int warningTime) {
-        this.warningTime = warningTime;
         this.worldBorder.setWarningTime(warningTime);
     }
 
     @Override
     public List<String> getPlayers() {
-        return players;
+        return this.players;
     }
 
     @Override
