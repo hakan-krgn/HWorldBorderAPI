@@ -24,13 +24,13 @@ public class HWorldBorder_v1_11_R1 implements HWorldBorder {
 
     public HWorldBorder_v1_11_R1(Location location, int size, int damageAmount, int damageBuffer, int warningDistance, int warningTime, HBorderColor color) {
         WorldBorder worldBorder = new WorldBorder();
+        worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
         worldBorder.setCenter(location.getX(), location.getZ());
         worldBorder.setSize(size);
         worldBorder.setDamageAmount(damageAmount);
         worldBorder.setDamageBuffer(damageBuffer);
         worldBorder.setWarningDistance(warningDistance);
         worldBorder.setWarningTime(warningTime);
-        worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 
         this.color = color;
         this.worldBorder = worldBorder;

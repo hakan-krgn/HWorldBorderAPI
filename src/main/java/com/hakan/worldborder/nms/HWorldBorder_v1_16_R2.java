@@ -8,8 +8,8 @@ import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -24,13 +24,13 @@ public class HWorldBorder_v1_16_R2 implements HWorldBorder {
 
     public HWorldBorder_v1_16_R2(Location location, int size, int damageAmount, int damageBuffer, int warningDistance, int warningTime, HBorderColor color) {
         WorldBorder worldBorder = new WorldBorder();
+        worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
         worldBorder.setCenter(location.getX(), location.getZ());
         worldBorder.setSize(size);
         worldBorder.setDamageAmount(damageAmount);
         worldBorder.setDamageBuffer(damageBuffer);
         worldBorder.setWarningDistance(warningDistance);
         worldBorder.setWarningTime(warningTime);
-        worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 
         this.color = color;
         this.worldBorder = worldBorder;
